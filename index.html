@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CodeBrew — A structured health and performance system built for healthcare workers. Nutrition, fitness, recovery, and mental health for shift-based professionals.">
+  <title>CodeBrew — Built for Those Who Never Stop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-bar" id="progress-bar"></div>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo" aria-label="CodeBrew home">
+        <svg class="logo-hex" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M16 2L29 9.5V22.5L16 30L3 22.5V9.5L16 2Z" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M16 8L11 11V17L16 20L21 17V11L16 8Z" fill="currentColor"/>
+        </svg>
+        CodeBrew
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="#problem">The Problem</a>
+        <a href="#system">The System</a>
+        <a href="#program">Program</a>
+        <a href="#about">About</a>
+        <a href="#join" class="nav-cta">Join Waitlist</a>
+      </div>
+      <button class="nav-hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+      <div class="hero-orb hero-orb-3"></div>
+      <div class="hero-grid"></div>
+    </div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge reveal-up">
+          <span class="badge-dot"></span>
+          Now Enrolling — Foundations Cohort 1
+        </div>
+        <h1 class="hero-title reveal-up delay-1">
+          Built for the ones<br>
+          <span class="gradient-text">who never stop.</span>
+        </h1>
+        <p class="hero-subtitle reveal-up delay-2">
+          A structured health system for healthcare workers — designed around shift work, not despite it. Nutrition, fitness, recovery, and mental performance for the people who keep everyone else alive.
+        </p>
+        <div class="hero-ctas reveal-up delay-3">
+          <a href="#join" class="btn btn-primary">
+            <span>Join the Waitlist</span>
+            <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#system" class="btn btn-ghost">See the System</a>
+        </div>
+        <div class="hero-stats reveal-up delay-4">
+          <div class="stat">
+            <div class="stat-value">
+              <span class="stat-number" data-target="63">0</span><span class="stat-suffix">%</span>
+            </div>
+            <span class="stat-label">of nurses report burnout</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <div class="stat-value">
+              <span class="stat-number" data-target="6">0</span><span class="stat-suffix"> wks</span>
+            </div>
+            <span class="stat-label">structured program</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <div class="stat-value">
+              <span class="stat-number" data-target="10">0</span><span class="stat-suffix">+ yrs</span>
+            </div>
+            <span class="stat-label">ER nursing experience</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="problem" id="problem">
+    <div class="container">
+      <div class="problem-grid">
+        <div class="problem-text reveal-left">
+          <span class="section-label">The Reality</span>
+          <h2>Burnout isn't a personal failure.<br>It's a systemic one.</h2>
+          <p>Healthcare workers carry the weight of everyone else's health — often at the expense of their own. Long shifts, irregular sleep, poor nutrition access, and chronic stress aren't just uncomfortable. They're unsustainable.</p>
+          <p>The standard wellness advice was written for people with standard lives. <strong>You don't have that.</strong> You need a system built specifically for the reality of your work.</p>
+          <a href="#system" class="problem-link">
+            See how CodeBrew is different
+            <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+        <div class="problem-cards">
+          <div class="problem-card reveal-up delay-1">
+            <div class="problem-card-icon" aria-hidden="true">⚡</div>
+            <div class="problem-card-body">
+              <strong>Energy crashes mid-shift</strong>
+              <p>No recovery window, no proper nutrition access — just pushing through.</p>
+            </div>
+          </div>
+          <div class="problem-card reveal-up delay-2">
+            <div class="problem-card-icon" aria-hidden="true">🧠</div>
+            <div class="problem-card-body">
+              <strong>Cognitive overload</strong>
+              <p>The mental load doesn't clock out when you do. It follows you home.</p>
+            </div>
+          </div>
+          <div class="problem-card reveal-up delay-3">
+            <div class="problem-card-icon" aria-hidden="true">🍽️</div>
+            <div class="problem-card-body">
+              <strong>Impossible nutrition</strong>
+              <p>No time for meal prep between 12-hour shifts. Vending machines aren't a meal plan.</p>
+            </div>
+          </div>
+          <div class="problem-card reveal-up delay-4">
+            <div class="problem-card-icon" aria-hidden="true">😴</div>
+            <div class="problem-card-body">
+              <strong>Broken sleep cycles</strong>
+              <p>Rotating shifts wreck your circadian rhythm. No amount of melatonin fixes that alone.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SYSTEM / PILLARS -->
+  <section class="system" id="system">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-label">The Five Pillars</span>
+        <h2>A system built around your actual life.</h2>
+        <p>CodeBrew isn't a generic wellness program slapped onto a healthcare context. Every component was designed with shift work, clinical demands, and realistic constraints as the starting point — not an afterthought.</p>
+      </div>
+      <div class="pillars-grid">
+        <div class="pillar-card reveal-up delay-1">
+          <div class="pillar-icon-wrap">
+            <span class="pillar-icon" aria-hidden="true">🥗</span>
+          </div>
+          <h3>Nutrition</h3>
+          <p>Meal timing and prep strategies built around shift patterns. Real food for real schedules — no two-hour prep sessions required.</p>
+          <span class="pillar-tag">Shift-adapted</span>
+        </div>
+        <div class="pillar-card reveal-up delay-2">
+          <div class="pillar-icon-wrap">
+            <span class="pillar-icon" aria-hidden="true">💪</span>
+          </div>
+          <h3>Fitness</h3>
+          <p>Movement protocols designed for fatigue. Short, effective, gym-optional — because you're already on your feet for 12 hours straight.</p>
+          <span class="pillar-tag">Time-efficient</span>
+        </div>
+        <div class="pillar-card reveal-up delay-3">
+          <div class="pillar-icon-wrap">
+            <span class="pillar-icon" aria-hidden="true">🌙</span>
+          </div>
+          <h3>Recovery & Sleep</h3>
+          <p>Evidence-based tools for restoring after demanding shifts. Sleep environment optimization and active recovery protocols for every shift type.</p>
+          <span class="pillar-tag">Science-backed</span>
+        </div>
+        <div class="pillar-card reveal-up delay-4">
+          <div class="pillar-icon-wrap">
+            <span class="pillar-icon" aria-hidden="true">🧘</span>
+          </div>
+          <h3>Mental Health</h3>
+          <p>Stress-reduction techniques that work in 5 minutes or 50. Cognitive tools to decompress and protect your long-term wellbeing.</p>
+          <span class="pillar-tag">Practical</span>
+        </div>
+        <div class="pillar-card reveal-up delay-5">
+          <div class="pillar-icon-wrap">
+            <span class="pillar-icon" aria-hidden="true">🤝</span>
+          </div>
+          <h3>Peer Sessions</h3>
+          <p>Breakout groups with fellow healthcare workers — share strategies, accountability, and experiences with people who actually understand your work.</p>
+          <span class="pillar-tag">Community-driven</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAM -->
+  <section class="program" id="program">
+    <div class="container">
+      <div class="section-header light-header reveal-up">
+        <span class="section-label">Foundations Program</span>
+        <h2>Six weeks. Sustainable systems.<br>Real change.</h2>
+        <p>The CodeBrew Foundations program is a structured 6-week experience that builds lasting health habits — one sustainable layer at a time. No overwhelm, no fads, no "just try harder."</p>
+      </div>
+      <div class="timeline">
+        <div class="timeline-track" aria-hidden="true"></div>
+        <div class="timeline-item reveal-up delay-1">
+          <div class="timeline-marker">
+            <span class="timeline-week">W1</span>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-label">Week One</span>
+            <h4>Baseline & Assessment</h4>
+            <p>Understand where you are, identify your biggest energy leaks, and set realistic targets that actually work with your specific schedule.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-up delay-2">
+          <div class="timeline-marker">
+            <span class="timeline-week">W2</span>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-label">Week Two</span>
+            <h4>Nutrition Foundations</h4>
+            <p>Build your shift-adapted meal framework. Simple prep systems and energy-sustaining food choices that require minimal time between shifts.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-up delay-3">
+          <div class="timeline-marker">
+            <span class="timeline-week">W3</span>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-label">Week Three</span>
+            <h4>Movement & Recovery</h4>
+            <p>Implement a realistic fitness routine and recovery protocol designed specifically for your shift patterns and energy levels.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-up delay-4">
+          <div class="timeline-marker">
+            <span class="timeline-week">W4</span>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-label">Week Four</span>
+            <h4>Sleep Optimization</h4>
+            <p>Tackle the hardest part of shift work. Science-backed tools for protecting and improving sleep quality no matter when — or how often — your schedule changes.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-up delay-5">
+          <div class="timeline-marker">
+            <span class="timeline-week">W5</span>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-label">Week Five</span>
+            <h4>Mental Performance</h4>
+            <p>Stress-reduction techniques, cognitive recovery tools, and real strategies for leaving work at work — protecting your headspace between shifts.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-up delay-6">
+          <div class="timeline-marker">
+            <span class="timeline-week">W6</span>
+          </div>
+          <div class="timeline-content">
+            <span class="timeline-label">Week Six</span>
+            <h4>Systems Integration</h4>
+            <p>Bring it all together. Build a personalized long-term health system that sustains itself — even on your worst shifts, even when life gets chaotic.</p>
+          </div>
+        </div>
+      </div>
+      <div class="program-cta reveal-up">
+        <a href="#join" class="btn btn-primary">Secure Your Spot</a>
+        <p>First cohort. Limited seats. Priority for waitlist members.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual reveal-left">
+          <div class="about-card">
+            <div class="about-avatar">
+              <div class="avatar-ring"></div>
+              <div class="avatar-inner" aria-label="Registered Nurse">RN</div>
+            </div>
+            <div class="about-name">CodeBrew Founder</div>
+            <div class="about-credentials">
+              <div class="credential">
+                <span class="credential-icon" aria-hidden="true">🏥</span>
+                <span>10+ years Emergency Nursing</span>
+              </div>
+              <div class="credential">
+                <span class="credential-icon" aria-hidden="true">✈️</span>
+                <span>Travel & Staff ER Experience</span>
+              </div>
+              <div class="credential">
+                <span class="credential-icon" aria-hidden="true">🏋️</span>
+                <span>Strength & Performance Conditioning</span>
+              </div>
+              <div class="credential">
+                <span class="credential-icon" aria-hidden="true">🥗</span>
+                <span>Nutrition Specialist</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about-text reveal-right">
+          <span class="section-label">Our Founder</span>
+          <h2>Built by someone<br>who lived it.</h2>
+          <p>CodeBrew was created by an emergency department nurse with over a decade of experience in some of the most demanding clinical environments in the country — as both a staff nurse and a travel nurse.</p>
+          <p>After watching colleagues burn out, personally struggling with the same patterns, and spending years studying nutrition, strength training, and performance conditioning — CodeBrew was born.</p>
+          <p>Not as a perfect solution. As a <strong>realistic one.</strong></p>
+          <div class="about-quote">
+            <div class="quote-bar"></div>
+            <p>"The system didn't exist, so I built it — for all of us."</p>
+          </div>
+          <div class="about-location">
+            <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M10 11a2 2 0 100-4 2 2 0 000 4z" fill="currentColor"/><path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 11 7 11s7-5.75 7-11c0-3.87-3.13-7-7-7z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+            Columbus, Ohio
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN / CTA -->
+  <section class="join" id="join">
+    <div class="join-bg">
+      <div class="join-orb join-orb-1"></div>
+      <div class="join-orb join-orb-2"></div>
+    </div>
+    <div class="container">
+      <div class="join-content reveal-up">
+        <span class="section-label light-label">Get Early Access</span>
+        <h2>Join the Foundations Waitlist.</h2>
+        <p>Be first to access the inaugural CodeBrew Foundations cohort. Waitlist members receive priority enrollment, early pricing, and exclusive pre-program content.</p>
+        <form class="join-form" id="join-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="form-name" class="sr-only">Your name</label>
+              <input type="text" id="form-name" name="name" placeholder="Your name" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label for="form-email" class="sr-only">Your email</label>
+              <input type="email" id="form-email" name="email" placeholder="Your email" class="form-input" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="form-role" class="sr-only">Your role</label>
+            <select id="form-role" name="role" class="form-select">
+              <option value="" disabled selected>Your role in healthcare</option>
+              <option value="er-nurse">ER / Emergency Nurse</option>
+              <option value="icu-nurse">ICU Nurse</option>
+              <option value="staff-nurse">Staff Nurse</option>
+              <option value="travel-nurse">Travel Nurse</option>
+              <option value="np-pa">NP / PA</option>
+              <option value="physician">Physician</option>
+              <option value="other">Other Healthcare Worker</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-large" id="submit-btn">
+            <span class="btn-text">Join the Waitlist</span>
+            <span class="btn-loading" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="31.4 31.4" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="0.8s" repeatCount="indefinite"/></circle></svg>
+            </span>
+            <span class="btn-success" aria-hidden="true">You're on the list ✓</span>
+          </button>
+        </form>
+        <p class="form-note">No spam. No pressure. Just updates on the program launch.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#hero" class="nav-logo footer-logo" aria-label="CodeBrew home">
+            <svg class="logo-hex" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M16 2L29 9.5V22.5L16 30L3 22.5V9.5L16 2Z" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M16 8L11 11V17L16 20L21 17V11L16 8Z" fill="currentColor"/>
+            </svg>
+            CodeBrew
+          </a>
+          <p>A health and performance system built for healthcare workers — by one who knows exactly what shift work takes out of you.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/columbuscodebrew" target="_blank" rel="noopener noreferrer" class="social-link">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+              @columbuscodebrew
+            </a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Navigate</h4>
+          <a href="#problem">The Problem</a>
+          <a href="#system">The System</a>
+          <a href="#program">Foundations</a>
+          <a href="#about">About</a>
+          <a href="#join">Join Waitlist</a>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <a href="mailto:clrankin3@gmail.com">clrankin3@gmail.com</a>
+          <span>Columbus, Ohio</span>
+          <a href="https://www.instagram.com/columbuscodebrew" target="_blank" rel="noopener noreferrer">@columbuscodebrew</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2025 CodeBrew. All rights reserved.</span>
+        <span>Columbus, Ohio</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
