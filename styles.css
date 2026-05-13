@@ -1439,61 +1439,46 @@ img {
   line-height: 1.8;
 }
 
-.ig-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+/* Behold widget slot */
+.behold-slot {
   margin-bottom: 40px;
 }
-.ig-cell {
-  aspect-ratio: 1;
+
+/* Override Behold's default styles to match the site */
+.behold-slot iframe,
+.behold-slot > div {
   border-radius: var(--radius-lg);
-  display: flex;
-  align-items: flex-end;
-  padding: 18px;
-  text-decoration: none;
-  position: relative;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid var(--border);
-}
-.ig-cell:hover {
-  transform: scale(1.03);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.4);
-  border-color: rgba(16,185,129,0.3);
-}
-.ig-cell::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 60%);
-  border-radius: inherit;
 }
 
-/* Distinct charcoal-based tones per cell */
-.ig-cell-1 { background: linear-gradient(145deg, #1c2b20 0%, #243322 100%); }
-.ig-cell-2 { background: linear-gradient(145deg, #222222 0%, #2c2c2c 100%); }
-.ig-cell-3 { background: linear-gradient(145deg, #1e2420 0%, #252e26 100%); }
-.ig-cell-4 { background: linear-gradient(145deg, #2a2218 0%, #332a1e 100%); }
-.ig-cell-5 { background: linear-gradient(145deg, #1a2420 0%, #222e28 100%); }
-.ig-cell-6 { background: linear-gradient(145deg, #201e18 0%, #2a2820 100%); }
-
-.ig-cell-content {
-  position: relative;
-  z-index: 1;
+/* Placeholder shown before Behold is connected */
+.ig-placeholder {
+  border: 1px dashed var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 64px 24px;
+  text-align: center;
+  margin-bottom: 0;
+}
+.ig-placeholder-inner {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-muted);
 }
-.ig-cell-label {
+.ig-placeholder-inner svg { color: var(--text-muted); }
+.ig-placeholder-inner p {
   font-family: var(--font-head);
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0;
 }
-.ig-cell-tag {
-  font-size: 0.72rem;
-  color: rgba(255,255,255,0.6);
+.ig-placeholder-inner span {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  max-width: 340px;
+  line-height: 1.6;
 }
 
 .ig-cta { text-align: center; }
@@ -1538,7 +1523,6 @@ img {
   .about-grid       { grid-template-columns: 1fr; gap: 48px; }
   .eco-grid         { grid-template-columns: 1fr; }
   .membership-grid  { grid-template-columns: 1fr; gap: 48px; }
-  .ig-grid          { grid-template-columns: repeat(2, 1fr); }
   .footer-grid      { grid-template-columns: 1fr 1fr; gap: 40px; }
   .footer-brand     { grid-column: 1 / -1; }
 
@@ -1592,7 +1576,6 @@ img {
   .visual-banner { height: 300px; }
   .banner-text p { font-size: clamp(1.5rem, 6vw, 2.2rem); }
   .about-photo { height: 420px; }
-  .ig-grid { grid-template-columns: repeat(2, 1fr); }
 
   .footer-grid { grid-template-columns: 1fr; gap: 36px; }
 
