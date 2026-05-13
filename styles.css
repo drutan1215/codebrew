@@ -599,6 +599,7 @@ h1, h2, h3, h4, h5 {
    ============================================================ */
 .problem {
   background: var(--cream);
+  color: var(--text-dark);
   padding: 120px 0;
 }
 
@@ -772,6 +773,7 @@ h1, h2, h3, h4, h5 {
    ============================================================ */
 .program {
   background: var(--cream);
+  color: var(--text-dark);
   padding: 120px 0;
 }
 .program .section-header        { text-align: center; margin-bottom: 72px; }
@@ -957,6 +959,7 @@ h1, h2, h3, h4, h5 {
    ============================================================ */
 .membership {
   background: var(--cream);
+  color: var(--text-dark);
   padding: 120px 0;
 }
 .membership-grid {
@@ -1104,6 +1107,7 @@ h1, h2, h3, h4, h5 {
    ABOUT
    ============================================================ */
 .about {
+  color: var(--text-dark);
   background-color: var(--cream);
   background-image:
     radial-gradient(ellipse 85% 75% at 35% 50%, transparent 25%, var(--cream) 100%),
