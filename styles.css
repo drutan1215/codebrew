@@ -698,8 +698,8 @@ h1, h2, h3, h4, h5 {
 
 .pillars-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
 }
 
 .pillar-card {
@@ -1470,5 +1470,4 @@ h1, h2, h3, h4, h5 {
   .hero-title   { font-size: 2.8rem; }
   .hero-ctas    { flex-direction: column; }
   .btn-ghost    { text-align: center; justify-content: center; }
-  .pillars-grid { grid-template-columns: 1fr; }
 }
