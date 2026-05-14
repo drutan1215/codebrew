@@ -15,25 +15,21 @@
   --radius-xl:  26px;
 
   /* Deep navy darks */
-  --dark:           #060E1F;
-  --dark-2:         #0D1830;
-  --surface:        #132040;
-  --surface-raised: #1A2A50;
-  --border:         #1F3260;
-  --border-light:   #2C4278;
+  --dark:         #060E1F;
+  --dark-2:       #0D1830;
+  --surface:      #132040;
+  --border:       #1F3260;
+  --border-light: #2C4278;
 
   /* Cream / warm light sections */
-  --cream:        #F6F2EA;
-  --cream-2:      #EEE8D8;
-  --parchment:    #E5DECE;
-  --light-border: #D2C9B8;
-  --champagne:    #FFF5DB;
+  --cream:     #F6F2EA;
+  --parchment: #E5DECE;
+  --champagne: #FFF5DB;
 
   /* Bone accent — warm ivory, elegant on deep navy */
   --gold:      #DDD5C4;
   --gold-dark: #C8BFB0;
   --gold-dim:  rgba(221,213,196,0.12);
-  --gold-glow: rgba(221,213,196,0.06);
 
   /* Steel blue — secondary tone */
   --slate:     #546D7D;
@@ -48,12 +44,6 @@
   --text-dark:       #060E1F;
   --text-dark-sub:   #1A2A50;
   --text-dark-muted: #3D5280;
-
-  /* Aliases kept for script.js compatibility */
-  --accent:     var(--gold);
-  --white:      #ffffff;
-  --off-white:  var(--cream);
-  --light-bg:   var(--cream);
 }
 
 /* === RESET === */
