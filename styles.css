@@ -1471,3 +1471,58 @@ h1, h2, h3, h4, h5 {
   .hero-ctas    { flex-direction: column; }
   .btn-ghost    { text-align: center; justify-content: center; }
 }
+
+/* ============================================================
+   FLOATING FORM BANNER
+   ============================================================ */
+.floating-form-banner {
+  position: fixed;
+  bottom: 0;
+  right: 24px;
+  z-index: 999;
+  width: 340px;
+  max-width: calc(100vw - 32px);
+}
+
+.floating-form-tab {
+  background: var(--gold);
+  color: var(--dark);
+  padding: 13px 18px;
+  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  user-select: none;
+  transition: background 0.2s;
+}
+.floating-form-tab:hover { background: var(--champagne); }
+
+.floating-form-label { flex: 1; }
+
+.floating-chevron {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  color: var(--dark);
+}
+.floating-form-banner.open .floating-chevron { transform: rotate(180deg); }
+
+.floating-form-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.38s ease;
+  background: var(--dark);
+  border: 1px solid var(--border-light);
+  border-bottom: none;
+  border-radius: 0;
+}
+.floating-form-banner.open .floating-form-body { max-height: 540px; }
+
+@media (max-width: 480px) {
+  .floating-form-banner { right: 0; width: 100%; }
+  .floating-form-tab { border-radius: 10px 10px 0 0; }
+}
