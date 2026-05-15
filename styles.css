@@ -1328,10 +1328,8 @@ h1, h2, h3, h4, h5 {
    FOOTER
    ============================================================ */
 .footer {
-  background-color: var(--dark);
-  background-image: radial-gradient(rgba(220,232,255,0.05) 1px, transparent 1px);
-  background-size: 22px 22px;
-  border-top: 1px solid var(--border);
+  background-color: var(--cream);
+  border-top: 1px solid var(--parchment);
   padding: 72px 0 36px;
   position: relative;
 }
@@ -1340,7 +1338,7 @@ h1, h2, h3, h4, h5 {
   grid-template-columns: 2fr 1fr 1fr;
   gap: 60px;
   padding-bottom: 48px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--parchment);
   margin-bottom: 32px;
 }
 
@@ -1351,12 +1349,12 @@ h1, h2, h3, h4, h5 {
   font-family: var(--font-display);
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--cream);
+  color: var(--text-dark);
   margin-bottom: 16px;
 }
 .footer-brand p {
   font-size: 0.875rem;
-  color: var(--text-warm-muted);
+  color: var(--text-dark-sub);
   line-height: 1.7;
   max-width: 320px;
   margin-bottom: 20px;
@@ -1367,11 +1365,11 @@ h1, h2, h3, h4, h5 {
   align-items: center;
   gap: 8px;
   font-size: 0.85rem;
-  color: var(--text-warm-muted);
+  color: var(--text-dark-muted);
   transition: color 0.2s;
 }
 .social-link svg { width: 18px; height: 18px; }
-.social-link:hover { color: var(--gold); }
+.social-link:hover { color: var(--dark); }
 
 .footer-links, .footer-contact {
   display: flex;
@@ -1381,24 +1379,24 @@ h1, h2, h3, h4, h5 {
   font-family: var(--font-display);
   font-size: 0.95rem;
   font-weight: 700;
-  color: var(--cream);
+  color: var(--text-dark);
   margin-bottom: 16px;
 }
 .footer-links a, .footer-contact a, .footer-contact span {
   font-size: 0.85rem;
-  color: var(--text-warm-muted);
+  color: var(--text-dark-sub);
   transition: color 0.2s;
   margin-bottom: 10px;
   display: block;
 }
-.footer-links a:hover, .footer-contact a:hover { color: var(--gold); }
+.footer-links a:hover, .footer-contact a:hover { color: var(--dark); }
 
 .footer-bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 0.8rem;
-  color: var(--text-warm-muted);
+  color: var(--text-dark-muted);
 }
 
 /* ============================================================
