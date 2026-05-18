@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foundations Member Portal — CodeBrew</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/codebrewlogofavicon.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', system-ui, sans-serif;
+      background: #060E1F;
+      color: #E8EFF8;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── LOADING ── */
+    #loading {
+      position: fixed;
+      inset: 0;
+      background: #060E1F;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid rgba(221,213,196,0.15);
+      border-top-color: #DDD5C4;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── GATE ── */
+    #access-gate {
+      display: none;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      background: radial-gradient(ellipse at top, #0D1830 0%, #060E1F 70%);
+    }
+    .gate-inner {
+      text-align: center;
+      max-width: 440px;
+    }
+    .gate-logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #F6F2EA;
+      letter-spacing: 0.04em;
+      margin-bottom: 40px;
+    }
+    .gate-logo span {
+      display: block;
+      font-size: 0.7rem;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #DDD5C4;
+      margin-top: 4px;
+    }
+    .gate-inner h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 600;
+      color: #F6F2EA;
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+    .gate-inner p {
+      font-size: 0.95rem;
+      color: #6B82A0;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .gate-inner p:last-of-type { margin-bottom: 32px; }
+    .gate-contact {
+      display: inline-block;
+      font-size: 0.85rem;
+      color: #DDD5C4;
+      border: 1px solid rgba(221,213,196,0.25);
+      border-radius: 8px;
+      padding: 10px 22px;
+      transition: border-color 0.2s;
+    }
+    .gate-contact:hover { border-color: #DDD5C4; }
+
+    /* ── PORTAL NAV ── */
+    #members-content { display: none; }
+    .portal-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(6,14,31,0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid #1F3260;
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .portal-nav-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .portal-nav-brand .brand-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #F6F2EA;
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+    .portal-nav-brand .brand-program {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #DDD5C4;
+    }
+    .portal-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .portal-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #DDD5C4;
+      background: rgba(221,213,196,0.1);
+      border: 1px solid rgba(221,213,196,0.2);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .logout-btn {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #6B82A0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .logout-btn:hover { color: #E8EFF8; }
+
+    /* ── CONTAINER ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ── WELCOME BANNER ── */
+    .welcome-banner {
+      padding: 72px 0 56px;
+      border-bottom: 1px solid #1F3260;
+    }
+    .welcome-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #DDD5C4;
+      margin-bottom: 20px;
+    }
+    .welcome-label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: #DDD5C4;
+    }
+    .welcome-banner h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 600;
+      color: #F6F2EA;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .welcome-banner p {
+      font-size: 1rem;
+      color: #A8BBCF;
+      max-width: 580px;
+      line-height: 1.7;
+    }
+    .welcome-meta {
+      display: flex;
+      gap: 32px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    .welcome-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .welcome-stat strong {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #DDD5C4;
+    }
+    .welcome-stat span {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #6B82A0;
+    }
+
+    /* ── WEEK MODULES ── */
+    .modules-section { padding: 64px 0; }
+    .modules-section h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 600;
+      color: #F6F2EA;
+      margin-bottom: 8px;
+    }
+    .modules-section > .container > p {
+      font-size: 0.9rem;
+      color: #6B82A0;
+      margin-bottom: 48px;
+    }
+
+    .week-card {
+      background: #0D1830;
+      border: 1px solid #1F3260;
+      border-left: 3px solid #DDD5C4;
+      border-radius: 14px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .week-card-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 24px 28px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .week-card-header:hover { background: rgba(221,213,196,0.03); }
+    .week-num {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: #132040;
+      border: 1px solid #2C4278;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #DDD5C4;
+      flex-shrink: 0;
+    }
+    .week-title-wrap { flex: 1; }
+    .week-label {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #546D7D;
+      margin-bottom: 3px;
+    }
+    .week-card-header h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #F6F2EA;
+      line-height: 1.2;
+    }
+    .week-toggle {
+      font-size: 1.1rem;
+      color: #546D7D;
+      transition: transform 0.25s;
+      flex-shrink: 0;
+    }
+    .week-card.open .week-toggle { transform: rotate(180deg); }
+
+    .week-card-body {
+      display: none;
+      padding: 0 28px 28px;
+      border-top: 1px solid #1F3260;
+    }
+    .week-card.open .week-card-body { display: block; }
+
+    .week-description {
+      font-size: 0.9rem;
+      color: #A8BBCF;
+      line-height: 1.7;
+      padding: 20px 0;
+    }
+
+    /* Video embed */
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #132040;
+      border: 1px solid #1F3260;
+      margin-bottom: 24px;
+    }
+    .video-container iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      color: #546D7D;
+      font-size: 0.85rem;
+    }
+    .video-placeholder .play-icon {
+      font-size: 2rem;
+      opacity: 0.4;
+    }
+
+    /* Resources */
+    .week-resources { display: flex; flex-wrap: wrap; gap: 10px; }
+    .resource-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      background: rgba(221,213,196,0.07);
+      border: 1px solid rgba(221,213,196,0.18);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #DDD5C4;
+      transition: background 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+    .resource-btn:hover {
+      background: rgba(221,213,196,0.12);
+      border-color: rgba(221,213,196,0.35);
+    }
+    .resource-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ── RESOURCES SECTION ── */
+    .resources-section {
+      padding: 64px 0;
+      border-top: 1px solid #1F3260;
+    }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #DDD5C4;
+      margin-bottom: 20px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: #DDD5C4;
+    }
+    .resources-section h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 600;
+      color: #F6F2EA;
+      margin-bottom: 8px;
+    }
+    .resources-section > .container > p {
+      font-size: 0.9rem;
+      color: #6B82A0;
+      margin-bottom: 36px;
+    }
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .resource-card {
+      background: #0D1830;
+      border: 1px solid #1F3260;
+      border-radius: 12px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .resource-card-icon {
+      font-size: 1.5rem;
+    }
+    .resource-card h4 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #F6F2EA;
+    }
+    .resource-card p {
+      font-size: 0.8rem;
+      color: #6B82A0;
+      line-height: 1.6;
+      flex: 1;
+    }
+    .resource-card a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #DDD5C4;
+      margin-top: 4px;
+      transition: color 0.2s;
+    }
+    .resource-card a:hover { color: #F6F2EA; }
+
+    /* ── SUPPORT SECTION ── */
+    .support-section {
+      padding: 64px 0 80px;
+      border-top: 1px solid #1F3260;
+    }
+    .support-section h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 600;
+      color: #F6F2EA;
+      margin-bottom: 8px;
+    }
+    .support-section > .container > p {
+      font-size: 0.9rem;
+      color: #6B82A0;
+      margin-bottom: 32px;
+    }
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .support-card {
+      background: #0D1830;
+      border: 1px solid #1F3260;
+      border-radius: 12px;
+      padding: 22px;
+    }
+    .support-card h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #E8EFF8;
+      margin-bottom: 6px;
+    }
+    .support-card p {
+      font-size: 0.8rem;
+      color: #6B82A0;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .support-card a {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #DDD5C4;
+      transition: color 0.2s;
+    }
+    .support-card a:hover { color: #F6F2EA; }
+
+    /* ── PORTAL FOOTER ── */
+    .portal-footer {
+      background: #060E1F;
+      border-top: 1px solid #1F3260;
+      padding: 24px 32px;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #3D5280;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .portal-nav { padding: 12px 20px; }
+      .container { padding: 0 20px; }
+      .welcome-banner { padding: 48px 0 40px; }
+      .portal-badge { display: none; }
+      .welcome-meta { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOADING -->
+  <div id="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- ACCESS GATE -->
+  <div id="access-gate">
+    <div class="gate-inner">
+      <div class="gate-logo">
+        CodeBrew
+        <span>Foundations Member Portal</span>
+      </div>
+      <h2>Member Access Required</h2>
+      <p>Your personal access link was included in your welcome email. Click that link to open your portal.</p>
+      <p>Can't find it? Check your spam folder or reach out and we'll resend it.</p>
+      <a href="mailto:clrankin3@gmail.com" class="gate-contact">Contact Support →</a>
+    </div>
+  </div>
+
+  <!-- MEMBERS CONTENT -->
+  <div id="members-content">
+
+    <!-- NAV -->
+    <nav class="portal-nav">
+      <div class="portal-nav-brand">
+        <span class="brand-name">CodeBrew</span>
+        <span class="brand-program">Foundations · Member Portal</span>
+      </div>
+      <div class="portal-nav-right">
+        <span class="portal-badge">Cohort 1</span>
+        <button class="logout-btn" onclick="doLogout()">Sign Out</button>
+      </div>
+    </nav>
+
+    <!-- WELCOME BANNER -->
+    <section class="welcome-banner">
+      <div class="container">
+        <span class="welcome-label">You're in</span>
+        <h1>Welcome to Foundations.</h1>
+        <p>Everything you need for your 6-week program lives here — your weekly modules, video content, downloads, and resources. Work through each week at your own pace.</p>
+        <div class="welcome-meta">
+          <div class="welcome-stat">
+            <strong>6</strong>
+            <span>Weeks</span>
+          </div>
+          <div class="welcome-stat">
+            <strong>4</strong>
+            <span>Pillars</span>
+          </div>
+          <div class="welcome-stat">
+            <strong>Cohort 1</strong>
+            <span>Inaugural</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WEEK MODULES -->
+    <section class="modules-section">
+      <div class="container">
+        <span class="section-label">Your Program</span>
+        <h2>Six weeks. One week at a time.</h2>
+        <p>Expand each week to access your content, videos, and downloads.</p>
+
+        <!-- WEEK 1 -->
+        <div class="week-card" id="week-1">
+          <div class="week-card-header" onclick="toggleWeek('week-1')">
+            <div class="week-num">W1</div>
+            <div class="week-title-wrap">
+              <span class="week-label">Week One</span>
+              <h3>Baseline &amp; Assessment</h3>
+            </div>
+            <span class="week-toggle">▾</span>
+          </div>
+          <div class="week-card-body">
+            <p class="week-description">
+              Understand where you are right now. This week is about honest assessment — identifying your biggest energy leaks, sleep patterns, movement habits, and nutrition gaps. No judgment, just clarity. By the end of this week you'll have a realistic baseline and specific targets that actually work with your schedule.
+            </p>
+            <!-- VIDEO: Replace src with your YouTube embed URL -->
+            <div class="video-container">
+              <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+              <div class="video-placeholder">
+                <span class="play-icon">▶</span>
+                <span>Week 1 Video — Coming Soon</span>
+              </div>
+            </div>
+            <div class="week-resources">
+              <!-- Add download links as needed -->
+              <a href="/members/assets/week1-guide.pdf" class="resource-btn" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16l-4-4h2.5V4h3v8H16l-4 4z"/><path d="M4 20h16"/></svg>
+                Week 1 Guide
+              </a>
+              <a href="/members/assets/week1-assessment.pdf" class="resource-btn" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16l-4-4h2.5V4h3v8H16l-4 4z"/><path d="M4 20h16"/></svg>
+                Assessment Worksheet
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- WEEK 2 -->
+        <div class="week-card" id="week-2">
+          <div class="week-card-header" onclick="toggleWeek('week-2')">
+            <div class="week-num">W2</div>
+            <div class="week-title-wrap">
+              <span class="week-label">Week Two</span>
+              <h3>Nutrition Foundations</h3>
+            </div>
+            <span class="week-toggle">▾</span>
+          </div>
+          <div class="week-card-body">
+            <p class="week-description">
+              Build your shift-adapted meal framework. This isn't a meal plan — it's a system. Simple prep protocols, energy-sustaining food choices, and strategies for eating well between 12-hour shifts without spending your only day off cooking.
+            </p>
+            <div class="video-container">
+              <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+              <div class="video-placeholder">
+                <span class="play-icon">▶</span>
+                <span>Week 2 Video — Coming Soon</span>
+              </div>
+            </div>
+            <div class="week-resources">
+              <a href="/members/assets/week2-nutrition-guide.pdf" class="resource-btn" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16l-4-4h2.5V4h3v8H16l-4 4z"/><path d="M4 20h16"/></svg>
+                Nutrition Guide
+              </a>
+              <a href="/members/assets/week2-meal-framework.pdf" class="resource-btn" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16l-4-4h2.5V4h3v8H16l-4 4z"/><path d="M4 20h16"/></svg>
+                Shift Meal Framework
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- WEEK 3 -->
+        <div class="week-card" id="week-3">
+          <div class="week-card-header" onclick="toggleWeek('week-3')">
+            <div class="week-num">W3</div>
+            <div class="week-title-wrap">
+              <span class="week-label">Week Three</span>
+              <h3>Movement &amp; Recovery</h3>
+            </div>
+            <span class="week-toggle">▾</span>
+          </div>
+          <div class="week-card-body">
+            <p class="week-description">
+              Implement a realistic fitness routine and recovery protocol designed specifically for your shift patterns. This isn't about training harder — it's about training smart within the windows your schedule actually allows, and recovering properly in between.
+            </p>
+            <div class="video-container">
+              <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+              <div class="video-placeholder">
+                <span class="play-icon">▶</span>
+                <span>Week 3 Video — Coming Soon</span>
+              </div>
+            </div>
+            <div class="week-resources">
+              <a href="/members/assets/week3-movement-guide.pdf" class="resource-btn" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16l-4-4h2.5V4h3v8H16l-4 4z"/><path d="M4 20h16"/></svg>
+                Movement Guide
+              </a>
+              <a href="/members/assets/week3-recovery-protocol.pdf" class="resource-btn" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16l-4-4h2.5V4h3v8H16l-4 4z"/><path d="M4 20h16"/></svg>
+                Recovery Protocol
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- WEEK 4 -->
+        <div class="week-card" id="week-4">
+          <div class="week-card-header" onclick="toggleWeek('week-4')">
+            <div class="week-num">W4</div>
+            <div class="week-title-wrap">
+              <span class="week-label">Week Four</span>
+              <h3>Sleep Optimization</h3>
+            </div>
+            <span class="week-toggle">▾</span>
+          </div>
+          <div class="week-card-body">
+            <p class="week-description">
+              This is the hardest pillar for shift workers — and the most important. Science-backed strategies for protecting and improving sleep quality regardless of when or how often your schedule rotates. Covers circadian rhythm support, pre- and post-shift wind-down, and what actually helps (and what doesn't).
+            </p>
+            <div class="video-container">
+              <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+              <div class="video-placeholder">
+                <span class="play-icon">▶</span>
+                <span>Week 4 Video — Coming Soon</span>
+              </div>
+            </div>
+            <div class="week-resources">
+              <a href="/members/assets/week4-sleep-guide.pdf" class="resource-btn" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16l-4-4h2.5V4h3v8H16l-4 4z"/><path d="M4 20h16"/></svg>
+                Sleep Optimization Guide
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- WEEK 5 -->
+        <div class="week-card" id="week-5">
+          <div class="week-card-header" onclick="toggleWeek('week-5')">
+            <div class="week-num">W5</div>
+            <div class="week-title-wrap">
+              <span class="week-label">Week Five</span>
+              <h3>Mental Performance</h3>
+            </div>
+            <span class="week-toggle">▾</span>
+          </div>
+          <div class="week-card-body">
+            <p class="week-description">
+              Stress-reduction techniques, cognitive recovery tools, and real strategies for leaving work at work. Protecting your headspace between shifts isn't a luxury — it's what makes everything else sustainable. This week covers nervous system regulation and what actually works for decompression after high-acuity shifts.
+            </p>
+            <div class="video-container">
+              <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+              <div class="video-placeholder">
+                <span class="play-icon">▶</span>
+                <span>Week 5 Video — Coming Soon</span>
+              </div>
+            </div>
+            <div class="week-resources">
+              <a href="/members/assets/week5-mental-guide.pdf" class="resource-btn" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16l-4-4h2.5V4h3v8H16l-4 4z"/><path d="M4 20h16"/></svg>
+                Mental Performance Guide
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- WEEK 6 -->
+        <div class="week-card" id="week-6">
+          <div class="week-card-header" onclick="toggleWeek('week-6')">
+            <div class="week-num">W6</div>
+            <div class="week-title-wrap">
+              <span class="week-label">Week Six</span>
+              <h3>Systems Integration</h3>
+            </div>
+            <span class="week-toggle">▾</span>
+          </div>
+          <div class="week-card-body">
+            <p class="week-description">
+              Bring it all together. This week is about building a personalized long-term health system that sustains itself — one that holds even on your worst shifts, even when life gets chaotic. You'll leave Foundations with a clear, realistic plan you can actually stick to.
+            </p>
+            <div class="video-container">
+              <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+              <div class="video-placeholder">
+                <span class="play-icon">▶</span>
+                <span>Week 6 Video — Coming Soon</span>
+              </div>
+            </div>
+            <div class="week-resources">
+              <a href="/members/assets/week6-integration-guide.pdf" class="resource-btn" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16l-4-4h2.5V4h3v8H16l-4 4z"/><path d="M4 20h16"/></svg>
+                Systems Integration Guide
+              </a>
+              <a href="/members/assets/week6-long-term-plan.pdf" class="resource-btn" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16l-4-4h2.5V4h3v8H16l-4 4z"/><path d="M4 20h16"/></svg>
+                Long-Term Plan Template
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RESOURCES -->
+    <section class="resources-section">
+      <div class="container">
+        <span class="section-label">Downloads</span>
+        <h2>Program Resources</h2>
+        <p>Guides, ebooks, and tools you can use anytime throughout the program.</p>
+        <div class="resource-grid">
+
+          <div class="resource-card">
+            <div class="resource-card-icon">📘</div>
+            <h4>Fuel for the Frontline</h4>
+            <p>Nutrition guidance built specifically for healthcare workers — shift-adapted, practical, and realistic.</p>
+            <a href="/Fuel for the Frontline.pdf" download>Download PDF →</a>
+          </div>
+
+          <!-- Add more resource cards as you create them:
+          <div class="resource-card">
+            <div class="resource-card-icon">📋</div>
+            <h4>Resource Title</h4>
+            <p>Brief description of what this resource covers.</p>
+            <a href="/members/assets/filename.pdf" download>Download PDF →</a>
+          </div>
+          -->
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SUPPORT -->
+    <section class="support-section">
+      <div class="container">
+        <span class="section-label">Support</span>
+        <h2>We're here.</h2>
+        <p>Questions about the program, technical issues, or just need to talk through something — reach out.</p>
+        <div class="support-grid">
+
+          <div class="support-card">
+            <h4>Program Questions</h4>
+            <p>Questions about content, your progress, or anything program-related.</p>
+            <a href="mailto:clrankin3@gmail.com">Email Chelsea →</a>
+          </div>
+
+          <!-- Add community card when ready:
+          <div class="support-card">
+            <h4>Community</h4>
+            <p>Connect with your fellow Cohort 1 members.</p>
+            <a href="COMMUNITY_URL" target="_blank" rel="noopener">Join the Group →</a>
+          </div>
+          -->
+
+          <div class="support-card">
+            <h4>Technical Issues</h4>
+            <p>Can't access content or having trouble with the portal? Let us know.</p>
+            <a href="mailto:clrankin3@gmail.com">Get Help →</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <footer class="portal-footer">
+      &copy; 2025 CodeBrew. Foundations Member Portal. All content is for enrolled members only.
+    </footer>
+
+  </div><!-- /members-content -->
+
+  <script type="module">
+    import { checkAccess, logout } from '/members/auth.js';
+
+    window.doLogout = () => logout('foundations');
+
+    window.toggleWeek = (id) => {
+      const card = document.getElementById(id);
+      card.classList.toggle('open');
+    };
+
+    (async () => {
+      const valid = await checkAccess('foundations');
+      document.getElementById('loading').style.display = 'none';
+      if (valid) {
+        document.getElementById('members-content').style.display = 'block';
+      } else {
+        document.getElementById('access-gate').style.display = 'flex';
+      }
+    })();
+  </script>
+
+</body>
+</html>
